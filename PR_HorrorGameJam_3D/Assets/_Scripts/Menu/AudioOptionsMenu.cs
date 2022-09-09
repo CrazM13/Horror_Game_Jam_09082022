@@ -26,6 +26,10 @@ public class AudioOptionsMenu : HidableMenu {
 		voiceSlider.value = voiceVolume;
 	}
 
+	private void Update() {
+		if (Input.GetButtonDown("Cancel")) Hide();
+	}
+
 	public void UpdateMasterVolume() {
 		float value = masterSlider.value;
 		mixer.SetFloat("MasterVolume", value);
