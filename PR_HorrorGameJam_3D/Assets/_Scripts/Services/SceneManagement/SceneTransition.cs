@@ -14,7 +14,7 @@ public class SceneTransition : MonoBehaviour {
 	private float timeUntilFinished;
 	private string changeToScene = "";
 
-	void Start() {
+	void Awake() {
 		canvas.blocksRaycasts = true;
 		canvas.alpha = 1;
 		Time.timeScale = 0;
@@ -26,9 +26,9 @@ public class SceneTransition : MonoBehaviour {
 			timeUntilFinished -= Time.unscaledDeltaTime;
 
 			if (string.IsNullOrEmpty(changeToScene)) {
-				canvas.alpha = timeUntilFinished / animationTime;
+				canvas.alpha = Mathf.Lerp(0, 1, timeUntilFinished / (animationTime - 0.1f));
 			} else {
-				canvas.alpha = 1 - (timeUntilFinished / animationTime);
+				canvas.alpha = Mathf.Lerp(1, 0, timeUntilFinished / (animationTime - 0.1f));
 			}
 
 			if (timeUntilFinished <= 0) {
@@ -59,6 +59,10 @@ public class SceneTransition : MonoBehaviour {
 		} else {
 			ServiceLocator.SceneManager.LoadSceneByName(changeToScene);
 		}
+	}
+
+	public static void Quit() {
+		Application.Quit();
 	}
 
 }
