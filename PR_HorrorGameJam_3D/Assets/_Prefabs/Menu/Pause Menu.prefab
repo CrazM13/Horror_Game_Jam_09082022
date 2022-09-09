@@ -893,7 +893,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 7312911094408790161}
         m_TargetAssemblyTypeName: AudioOptionsMenu, Assembly-CSharp
         m_MethodName: UpdateMusicVolume
         m_Mode: 1
@@ -1336,7 +1336,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 7312911094408790161}
         m_TargetAssemblyTypeName: AudioOptionsMenu, Assembly-CSharp
         m_MethodName: UpdateMasterVolume
         m_Mode: 1
@@ -3055,7 +3055,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 7312911094408790161}
         m_TargetAssemblyTypeName: AudioOptionsMenu, Assembly-CSharp
         m_MethodName: UpdateVoiceVolume
         m_Mode: 1
@@ -3992,7 +3992,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 7312911094408790161}
         m_TargetAssemblyTypeName: AudioOptionsMenu, Assembly-CSharp
         m_MethodName: UpdateSoundFXVolume
         m_Mode: 1
