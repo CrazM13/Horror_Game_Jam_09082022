@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour {
 
@@ -50,21 +51,21 @@ public class AudioManager : MonoBehaviour {
 		}
 	}
 
-	public void PlayGlobal(string group, string clip) {
+	public void PlayGlobal(string group, string clip, bool looping = false) {
 		AudioClip foundClip = GetClipFromGroup(group, clip);
-		if (foundClip) PlayGlobal(foundClip);
+		if (foundClip) PlayGlobal(foundClip, mappedAudioGroups[group].GetAudioGroup(), looping);
 	}
 
 	public void PlayLocal(Vector3 position, string group, string clip) {
 		AudioClip foundClip = GetClipFromGroup(group, clip);
-		if (foundClip) PlayLocal(position, foundClip);
+		if (foundClip) PlayLocal(position, foundClip, mappedAudioGroups[group].GetAudioGroup());
 	}
 
-	public void PlayRandomGlobal(string group) {
+	public void PlayRandomGlobal(string group, bool looping = false) {
 		if (mappedAudioGroups.ContainsKey(group)) {
 			AudioClip foundClip = mappedAudioGroups[group].GetRandomClipWithoutRepeating();
 			if (foundClip != null) {
-				PlayGlobal(foundClip);
+				PlayGlobal(foundClip, mappedAudioGroups[group].GetAudioGroup(), looping);
 			} else {
 				Debug.LogError($"Group \"{group}\" is empty!");
 			}
@@ -77,7 +78,7 @@ public class AudioManager : MonoBehaviour {
 		if (mappedAudioGroups.ContainsKey(group)) {
 			AudioClip foundClip = mappedAudioGroups[group].GetRandomClipWithoutRepeating();
 			if (foundClip != null) {
-				PlayLocal(position, foundClip);
+				PlayLocal(position, foundClip, mappedAudioGroups[group].GetAudioGroup());
 			} else {
 				Debug.LogError($"Group \"{group}\" is empty!");
 			}
@@ -91,20 +92,22 @@ public class AudioManager : MonoBehaviour {
 		globalAudioSource.Play();
 	}
 
-	public void PlayGlobal(AudioClip clip, bool looping = false) {
+	public void PlayGlobal(AudioClip clip, AudioMixerGroup mixerGroup, bool looping = false) {
 		globalAudioSource.clip = clip;
 		globalAudioSource.loop = looping;
+		globalAudioSource.outputAudioMixerGroup = mixerGroup;
 		globalAudioSource.Play();
 	}
 
-	public void PlayLocal(Vector3 position, AudioClip clip) {
+	public void PlayLocal(Vector3 position, AudioClip clip, AudioMixerGroup mixerGroup) {
 		GameObject newFloatingObject = floatingAudioSources.CreateNew();
+		newFloatingObject.SetActive(true);
 		newFloatingObject.transform.position = position;
 
 		FloatingAudioSource audio = newFloatingObject.GetComponent<FloatingAudioSource>();
 
 		if (audio) {
-			audio.Play(this, clip);
+			audio.Play(this, clip, mixerGroup);
 		}
 	}
 
@@ -124,6 +127,7 @@ public class AudioManager : MonoBehaviour {
 	}
 
 	public void RemoveFloatingAudioSource(GameObject floatingAudioSource) {
+		floatingAudioSource.SetActive(false);
 		floatingAudioSources.Destroy(floatingAudioSource);
 	}
 }

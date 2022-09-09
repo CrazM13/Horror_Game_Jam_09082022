@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ae47541f2112e64d89dcedae92936ef, type: 3}
+  m_Name: SoundFX Test
+  m_EditorClassIdentifier: 
+  group: {fileID: 6688713517319119524, guid: 53704b469db0b3f469880505713e8cf4, type: 2}
+  audioClips:
+  - item: {fileID: 8300000, guid: f18a2e083b581824182cb7cbcc54b88b, type: 3}
+    weight: 1
+  - item: {fileID: 8300000, guid: a239ef3676d360d43b09e806101588c9, type: 3}
+    weight: 1
+  - item: {fileID: 8300000, guid: fa1d2758abb13de4082baadbd43a9809, type: 3}
+    weight: 1
+  - item: {fileID: 8300000, guid: f74e966c3e237ab41b00318e9769311e, type: 3}
+    weight: 1
+  - item: {fileID: 8300000, guid: 4984feca51eb9264ea1a23ca1b791f88, type: 3}
+    weight: 1
+  - item: {fileID: 8300000, guid: 6d6a7b985bc5b0e4d92f8b32040eb474, type: 3}
+    weight: 1
+  - item: {fileID: 8300000, guid: 43b36344ef593f842baf32b1e20834b4, type: 3}
+    weight: 1
+  - item: {fileID: 8300000, guid: 527867a943881ea4f8996df34481b3be, type: 3}
+    weight: 1
+  - item: {fileID: 8300000, guid: 3c91e1c612463e84a8b849f3a261af63, type: 3}
+    weight: 1
+  - item: {fileID: 8300000, guid: 958cbe22e25a66541b4062bbf0583e6b, type: 3}
+    weight: 1
+  - item: {fileID: 8300000, guid: cc586350513c5b0468ac32a3f4ca760c, type: 3}
+    weight: 1

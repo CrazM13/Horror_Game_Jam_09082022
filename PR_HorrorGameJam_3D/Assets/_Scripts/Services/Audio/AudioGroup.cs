@@ -1,9 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 [CreateAssetMenu(fileName = "New Audio Group", menuName = "Audio/Audio Group", order = 0)]
 public class AudioGroup : ScriptableObject {
+
+	[Header("Settings")]
+	[SerializeField] private AudioMixerGroup group;
 
 	[Header("Clips")]
 	[SerializeField] private AudioGroupItem[] audioClips;
@@ -43,6 +47,10 @@ public class AudioGroup : ScriptableObject {
 		}
 
 		return null;
+	}
+
+	public AudioMixerGroup GetAudioGroup() {
+		return group;
 	}
 
 	[System.Serializable]

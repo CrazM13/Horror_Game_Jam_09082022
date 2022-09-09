@@ -14,4 +14,12 @@ public class PauseMenu : HidableMenu {
 		Clock.OnUnpause.RemoveListener(Hide);
 	}
 
+	public void ChangeScene(string sceneName) {
+		ServiceLocator.SceneManager.LoadSceneByName(sceneName);
+	}
+
+	public void Quit() {
+		ServiceLocator.SceneManager.QuitGame();
+	}
+
 }

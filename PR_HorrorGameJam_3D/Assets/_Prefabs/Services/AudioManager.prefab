@@ -142,5 +142,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   globalAudioSource: {fileID: 938954893204877391}
   prefabAudioSource: {fileID: 2135173179392349793, guid: fe27c1427b4e303499429dae4440a179, type: 3}
-  audioGroups: []
+  audioGroups:
+  - {fileID: 11400000, guid: f4bd554b3ddef8b49af097e92ea46ed3, type: 2}
+  - {fileID: 11400000, guid: 3d8ce1c052b57754b83a5768ce5f55b2, type: 2}
+  - {fileID: 11400000, guid: a3dbbf050e80318468b0ff88791cc340, type: 2}
   maxFloatingAudioSources: 15

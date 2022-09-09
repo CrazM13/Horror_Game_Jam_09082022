@@ -61,8 +61,12 @@ public class SceneTransition : MonoBehaviour {
 		}
 	}
 
-	public static void Quit() {
+	public void QuitGame() {
 		Application.Quit();
+	}
+
+	public static void Quit() {
+		ServiceLocator.SceneManager.QuitGame();
 	}
 
 }

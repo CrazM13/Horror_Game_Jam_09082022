@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class FloatingAudioSource : MonoBehaviour {
 
@@ -18,9 +19,10 @@ public class FloatingAudioSource : MonoBehaviour {
 		}
 	}
 
-	public void Play(AudioManager manager, AudioClip clip) {
+	public void Play(AudioManager manager, AudioClip clip, AudioMixerGroup mixerGroup) {
 		audioSource.clip = clip;
 		timeUntilStop = clip.length;
+		audioSource.outputAudioMixerGroup = mixerGroup;
 		audioSource.Play();
 
 		this.manager = manager;
