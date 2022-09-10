@@ -8,6 +8,11 @@ public class GameStateManager : MonoBehaviour {
 	[SerializeField] private Score_Tracker score;
 	[SerializeField] private HighLowMenu highLowMenu;
 
+	[SerializeField] private Dice[] playerDice;
+	[SerializeField] private Dice[] oracleDice;
+
+	int oracleScore = 0;
+
 	public Score_Tracker Score => score;
 
 	private bool IsHigher;
@@ -44,6 +49,8 @@ public class GameStateManager : MonoBehaviour {
 
 	void Start() {
 		CurrentState = GameStates.INTRODUCTION;
+
+
 	}
 
 	void Update() {
@@ -72,6 +79,13 @@ public class GameStateManager : MonoBehaviour {
 			case GameStates.INTRODUCTION:
 				ServiceLocator.AudioManager.PlayRandomGlobal("Turn Start");
 				ScheduleStateChange(GameStates.ORACLE_ROLL, 5f);
+
+				foreach (Dice dice in playerDice) {
+					dice.gameObject.SetActive(false);
+				}
+				foreach (Dice dice in oracleDice) {
+					dice.gameObject.SetActive(false);
+				}
 				break;
 			case GameStates.ORACLE_ROLL:
 				if (oracleWins >= 3) {
@@ -80,12 +94,23 @@ public class GameStateManager : MonoBehaviour {
 					ServiceLocator.SceneManager.LoadSceneByName("Win Scene");
 				}
 
+				foreach(Dice dice in oracleDice) {
+					dice.gameObject.SetActive(true);
+					dice.RollDice();
+				}
+
 				// TODO
 
 				ScheduleStateChange(GameStates.ORACLE_INSTRUCT, 10f);
 				break;
 			case GameStates.ORACLE_INSTRUCT:
 				ServiceLocator.AudioManager.PlayRandomGlobal("High Low");
+
+				oracleScore = 0;
+				foreach (Dice dice in oracleDice) {
+					oracleScore += dice.diceValue;
+				}
+
 				ScheduleStateChange(GameStates.PLAYER_HIGH_LOW, 5f);
 				break;
 			case GameStates.PLAYER_HIGH_LOW:
@@ -94,13 +119,20 @@ public class GameStateManager : MonoBehaviour {
 			case GameStates.PLAYER_ROLL:
 				ScheduleStateChange(GameStates.SCORE, 5f);
 
-				// TODO
+				foreach (Dice dice in playerDice) {
+					dice.gameObject.SetActive(true);
+					dice.RollDice();
+				}
 
 				break;
 			case GameStates.SCORE:
 
-				Score.setDice(Random.Range(1, 7), Random.Range(1, 7), IsHigher);
-				//Score.setDice(1, 1, IsHigher);
+				int playerScore = 0;
+				foreach (Dice dice in playerDice) {
+					playerScore += dice.diceValue;
+				}
+
+				Score.setDice(playerScore, oracleScore, IsHigher);
 
 				ScheduleStateChange(GameStates.VOODOO_SELECT, 2f);
 				break;

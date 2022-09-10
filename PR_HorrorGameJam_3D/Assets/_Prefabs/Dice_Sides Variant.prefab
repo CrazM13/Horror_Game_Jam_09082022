@@ -95,7 +95,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cc9b7b77a8f7ab479d42f8d42521755, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sideValue: 6
+  sideValue: 1
   checkSize: {x: 0.3, y: 0.3, z: 0.3}
 --- !u!65 &267529217
 BoxCollider:
@@ -205,7 +205,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cc9b7b77a8f7ab479d42f8d42521755, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sideValue: 1
+  sideValue: 6
   checkSize: {x: 0.3, y: 0.3, z: 0.3}
 --- !u!65 &285802768
 BoxCollider:
@@ -713,7 +713,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 62bbab2ca4d3db441bc9bc5fbb95e2a4, type: 3}
       propertyPath: m_Name
-      value: Dice_Sides
+      value: Dice_Sides Variant
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 62bbab2ca4d3db441bc9bc5fbb95e2a4, type: 3}
       propertyPath: m_Layer
