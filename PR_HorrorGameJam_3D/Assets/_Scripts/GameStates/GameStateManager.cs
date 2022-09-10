@@ -7,6 +7,7 @@ public class GameStateManager : MonoBehaviour {
 
 	[SerializeField] private Score_Tracker score;
 	[SerializeField] private HighLowMenu highLowMenu;
+	[SerializeField] private Transform victim;
 
 	[SerializeField] private Dice[] playerDice;
 	[SerializeField] private Dice[] oracleDice;
@@ -88,6 +89,8 @@ public class GameStateManager : MonoBehaviour {
 				}
 				break;
 			case GameStates.ORACLE_ROLL:
+				ServiceLocator.AudioManager.PlayRandomLocal(victim.position, "Victim");
+
 				if (oracleWins >= 3) {
 					ServiceLocator.SceneManager.LoadSceneByName("Lose Scene");
 				} else if (playerWins >= 3) {
@@ -98,10 +101,7 @@ public class GameStateManager : MonoBehaviour {
 					dice.gameObject.SetActive(true);
 					dice.RollDice();
 				}
-
-				// TODO
-
-				ScheduleStateChange(GameStates.ORACLE_INSTRUCT, 10f);
+				
 				break;
 			case GameStates.ORACLE_INSTRUCT:
 				ServiceLocator.AudioManager.PlayRandomGlobal("High Low");
@@ -117,8 +117,6 @@ public class GameStateManager : MonoBehaviour {
 				highLowMenu.IsShowing = true;
 				break;
 			case GameStates.PLAYER_ROLL:
-				ScheduleStateChange(GameStates.SCORE, 5f);
-
 				foreach (Dice dice in playerDice) {
 					dice.gameObject.SetActive(true);
 					dice.RollDice();
@@ -147,6 +145,7 @@ public class GameStateManager : MonoBehaviour {
 					playerWins++;
 				} else if (Score.getResult() == "Player_Lose") {
 					ServiceLocator.AudioManager.PlayRandomGlobal("Player Lose");
+					ServiceLocator.AudioManager.PlayRandomLocal(victim.position, "Victim");
 					oracleWins++;
 				}
 
@@ -156,7 +155,22 @@ public class GameStateManager : MonoBehaviour {
 	}
 
 	private void UpdateStates() {
-
+		switch (CurrentState) {
+			case GameStates.PLAYER_ROLL:
+				bool isDone = true;
+				foreach (Dice dice in playerDice) {
+					if (!dice.IsDone) isDone = false;
+				}
+				if (isDone && timeUntilChangeState < 0) ScheduleStateChange(GameStates.SCORE, 2f);
+				break;
+			case GameStates.ORACLE_ROLL:
+				bool isOracleDone = true;
+				foreach (Dice dice in oracleDice) {
+					if (!dice.IsDone) isOracleDone = false;
+				}
+				if (isOracleDone && timeUntilChangeState < 0) ScheduleStateChange(GameStates.ORACLE_INSTRUCT, 2f);
+				break;
+		}
 	}
 
 	public void SetHighLow(bool isHigher) {

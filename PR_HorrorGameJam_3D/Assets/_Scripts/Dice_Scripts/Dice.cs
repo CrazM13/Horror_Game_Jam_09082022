@@ -15,7 +15,10 @@ public class Dice : MonoBehaviour
 
     public DiceSide[] diceSies;
 
-     void Start()
+	public bool IsDone => hasLanded;
+
+
+	 void Start()
     {
         rb = GetComponent<Rigidbody>();
         initPosition = transform.position;
