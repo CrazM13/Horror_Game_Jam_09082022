@@ -91,7 +91,6 @@ public class GameStateManager : MonoBehaviour {
 
 				// TODO
 
-				ScheduleStateChange(GameStates.SCORE, 5f);
 				break;
 			case GameStates.SCORE:
 
