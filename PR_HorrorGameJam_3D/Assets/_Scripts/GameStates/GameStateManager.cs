@@ -88,6 +88,7 @@ public class GameStateManager : MonoBehaviour {
 				highLowMenu.IsShowing = true;
 				break;
 			case GameStates.PLAYER_ROLL:
+				ScheduleStateChange(GameStates.SCORE, 5f);
 
 				// TODO
 
@@ -95,11 +96,14 @@ public class GameStateManager : MonoBehaviour {
 			case GameStates.SCORE:
 
 				Score.setDice(Random.Range(1, 7), Random.Range(1, 7), IsHigher);
+				//Score.setDice(1, 1, IsHigher);
 
-				ScheduleStateChange(GameStates.VOODOO_SELECT, 5f);
+				ScheduleStateChange(GameStates.VOODOO_SELECT, 2f);
 				break;
 			case GameStates.VOODOO_SELECT:
-				// TODO
+				if (Score.getResult() == "Tie") {
+					CurrentState = GameStates.PLAYER_ROLL;
+				}
 				break;
 			case GameStates.VOODOO_PAIN:
 				if (Score.getResult() == "Player_Win") {
@@ -108,8 +112,6 @@ public class GameStateManager : MonoBehaviour {
 				} else if (Score.getResult() == "Player_Lose") {
 					ServiceLocator.AudioManager.PlayRandomGlobal("Player Lose");
 					oracleWins++;
-				} else {
-					CurrentState = GameStates.PLAYER_ROLL;
 				}
 
 				ScheduleStateChange(GameStates.ORACLE_ROLL, 5f);

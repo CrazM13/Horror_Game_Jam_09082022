@@ -34,10 +34,9 @@ public class VoodooDoll : MonoBehaviour {
 				Vector3 hitOffset = hit.point - transform.position;
 				offsets.Add(hitOffset);
 				MoveNeedle(hitOffset);
+				ServiceLocator.GameManager.CurrentState = GameStateManager.GameStates.VOODOO_PAIN;
 			}
 		}
-
-		ServiceLocator.GameManager.CurrentState = GameStateManager.GameStates.VOODOO_PAIN;
 	}
 
 	private void MoveNeedle(Vector3 offset) {
