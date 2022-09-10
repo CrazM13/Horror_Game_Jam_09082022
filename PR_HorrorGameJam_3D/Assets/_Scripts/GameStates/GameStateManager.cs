@@ -51,6 +51,12 @@ public class GameStateManager : MonoBehaviour {
 	void Start() {
 		CurrentState = GameStates.INTRODUCTION;
 
+		foreach (Dice dice in playerDice) {
+			dice.transform.position = new Vector3(0, 100, 0);
+		}
+		foreach (Dice dice in oracleDice) {
+			dice.transform.position = new Vector3(0, 100, 0);
+		}
 
 	}
 
