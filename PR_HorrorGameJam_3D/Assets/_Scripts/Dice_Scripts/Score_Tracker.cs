@@ -7,31 +7,51 @@ public class Score_Tracker : MonoBehaviour
     [SerializeField] private string result;
     [SerializeField] private int player;
     [SerializeField] private int oracle;
-    // Start is called before the first frame update
-    void Start()
+    public bool isHigher;
+    public void checkWin()
     {
-        player = Random.Range(2, 13);
-        oracle = Random.Range(2, 13);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if(player > oracle)
+        if (isHigher == true)
         {
-            result = "Player_Win";
-        }
-        else if(oracle > player)
-        {
-            result = "Player_Lose";
+            if (player > oracle)
+            {
+                result = "Player_Win";
+            }
+            else if (oracle > player)
+            {
+                result = "Player_Lose";
+            }
+            else
+            {
+                result = "Tie";
+            }
         }
         else
         {
-            result = "Tie";
+            if (player > oracle)
+            {
+                result = "Player_Lose";
+            }
+            else if (oracle > player)
+            {
+                result = "Player_Win";
+            }
+            else
+            {
+                result = "Tie";
+            }
         }
     }
 
-    string getResult()
+    public void setDice(int player, int oracle, bool isHigher)
+    {
+        this.player = player;
+        this.oracle = oracle;
+        this.isHigher = isHigher;
+
+        checkWin();
+    }
+
+    public string getResult()
     {
         return result;
     }
