@@ -12,6 +12,9 @@ public class GameStateManager : MonoBehaviour {
 
 	private bool IsHigher;
 
+	private int playerWins;
+	private int oracleWins;
+
 	public enum GameStates {
 		INTRODUCTION = 0,
 		ORACLE_ROLL = 1,
@@ -67,9 +70,9 @@ public class GameStateManager : MonoBehaviour {
 				ScheduleStateChange(GameStates.ORACLE_ROLL, 5f);
 				break;
 			case GameStates.ORACLE_ROLL:
-				if (Score.GetOracleWins() >= 3) {
+				if (oracleWins >= 3) {
 					ServiceLocator.SceneManager.LoadSceneByName("Lose Scene");
-				} else if (Score.GetPlayerWins() >= 3) {
+				} else if (playerWins >= 3) {
 					ServiceLocator.SceneManager.LoadSceneByName("Win Scene");
 				}
 
@@ -88,7 +91,6 @@ public class GameStateManager : MonoBehaviour {
 
 				// TODO
 
-				ScheduleStateChange(GameStates.SCORE, 5f);
 				break;
 			case GameStates.SCORE:
 
@@ -102,8 +104,10 @@ public class GameStateManager : MonoBehaviour {
 			case GameStates.VOODOO_PAIN:
 				if (Score.getResult() == "Player_Win") {
 					ServiceLocator.AudioManager.PlayRandomGlobal("Oracle Hurt");
+					playerWins++;
 				} else if (Score.getResult() == "Player_Lose") {
 					ServiceLocator.AudioManager.PlayRandomGlobal("Player Lose");
+					oracleWins++;
 				} else {
 					CurrentState = GameStates.PLAYER_ROLL;
 				}
