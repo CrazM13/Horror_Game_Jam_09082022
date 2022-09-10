@@ -57,11 +57,11 @@ public class Dice : MonoBehaviour
         }
        else if (thrown && hasLanded)
         {
-            Reset();
+            ResetDice();
         }
     }
 
-     void Reset()
+     void ResetDice()
     {
         transform.position = initPosition;  
         thrown = false;
@@ -72,7 +72,7 @@ public class Dice : MonoBehaviour
 
     void RollAgain()
     {
-        Reset();
+        ResetDice();
         thrown = true;
         rb.useGravity = true;
         rb.AddTorque(Random.Range(0, 500), Random.Range(0, 500), Random.Range(0, 500));
