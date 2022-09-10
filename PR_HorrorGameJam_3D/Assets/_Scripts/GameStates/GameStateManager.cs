@@ -55,6 +55,10 @@ public class GameStateManager : MonoBehaviour {
 			}
 		}
 
+		if (Input.GetKeyDown(KeyCode.P)) {
+			Clock.IsPaused = !Clock.IsPaused;
+		}
+
 		UpdateStates();
 	}
 
