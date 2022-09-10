@@ -12,6 +12,9 @@ public class GameStateManager : MonoBehaviour {
 
 	private bool IsHigher;
 
+	private int playerWins;
+	private int oracleWins;
+
 	public enum GameStates {
 		INTRODUCTION = 0,
 		ORACLE_ROLL = 1,
@@ -39,7 +42,7 @@ public class GameStateManager : MonoBehaviour {
 
 	public UnityEvent<GameStateManager> OnChangedState { get; private set; } = new UnityEvent<GameStateManager>();
 
-	void Awake() {
+	void Start() {
 		CurrentState = GameStates.INTRODUCTION;
 	}
 
@@ -50,6 +53,10 @@ public class GameStateManager : MonoBehaviour {
 			if (timeUntilChangeState <= 0) {
 				CurrentState = newGameState;
 			}
+		}
+
+		if (Input.GetKeyDown(KeyCode.P)) {
+			Clock.IsPaused = !Clock.IsPaused;
 		}
 
 		UpdateStates();
@@ -67,7 +74,14 @@ public class GameStateManager : MonoBehaviour {
 				ScheduleStateChange(GameStates.ORACLE_ROLL, 5f);
 				break;
 			case GameStates.ORACLE_ROLL:
+				if (oracleWins >= 3) {
+					ServiceLocator.SceneManager.LoadSceneByName("Lose Scene");
+				} else if (playerWins >= 3) {
+					ServiceLocator.SceneManager.LoadSceneByName("Win Scene");
+				}
+
 				// TODO
+
 				ScheduleStateChange(GameStates.ORACLE_INSTRUCT, 10f);
 				break;
 			case GameStates.ORACLE_INSTRUCT:
@@ -78,37 +92,39 @@ public class GameStateManager : MonoBehaviour {
 				highLowMenu.IsShowing = true;
 				break;
 			case GameStates.PLAYER_ROLL:
-				// TODO
 				ScheduleStateChange(GameStates.SCORE, 5f);
+
+				// TODO
+
 				break;
 			case GameStates.SCORE:
 
 				Score.setDice(Random.Range(1, 7), Random.Range(1, 7), IsHigher);
+				//Score.setDice(1, 1, IsHigher);
 
-				ScheduleStateChange(GameStates.VOODOO_SELECT, 5f);
+				ScheduleStateChange(GameStates.VOODOO_SELECT, 2f);
 				break;
 			case GameStates.VOODOO_SELECT:
-				// TODO
+				if (Score.getResult() == "Tie") {
+					CurrentState = GameStates.PLAYER_ROLL;
+				}
 				break;
 			case GameStates.VOODOO_PAIN:
 				if (Score.getResult() == "Player_Win") {
 					ServiceLocator.AudioManager.PlayRandomGlobal("Oracle Hurt");
+					playerWins++;
 				} else if (Score.getResult() == "Player_Lose") {
 					ServiceLocator.AudioManager.PlayRandomGlobal("Player Lose");
-				} else {
-					CurrentState = GameStates.PLAYER_ROLL;
+					oracleWins++;
 				}
+
 				ScheduleStateChange(GameStates.ORACLE_ROLL, 5f);
 				break;
 		}
 	}
 
 	private void UpdateStates() {
-		switch (CurrentState) {
-			case GameStates.VOODOO_SELECT:
-				if (Input.anyKeyDown) CurrentState = GameStates.VOODOO_PAIN;
-				break;
-		}
+
 	}
 
 	public void SetHighLow(bool isHigher) {
