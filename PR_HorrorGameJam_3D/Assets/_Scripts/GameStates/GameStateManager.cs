@@ -81,12 +81,6 @@ public class GameStateManager : MonoBehaviour {
 				ServiceLocator.AudioManager.PlayRandomGlobal("Turn Start");
 				ScheduleStateChange(GameStates.ORACLE_ROLL, 5f);
 
-				foreach (Dice dice in playerDice) {
-					dice.gameObject.SetActive(false);
-				}
-				foreach (Dice dice in oracleDice) {
-					dice.gameObject.SetActive(false);
-				}
 				break;
 			case GameStates.ORACLE_ROLL:
 				ServiceLocator.AudioManager.PlayRandomLocal(victim.position, "Victim");
@@ -98,7 +92,6 @@ public class GameStateManager : MonoBehaviour {
 				}
 
 				foreach(Dice dice in oracleDice) {
-					dice.gameObject.SetActive(true);
 					dice.RollDice();
 				}
 				
@@ -118,7 +111,6 @@ public class GameStateManager : MonoBehaviour {
 				break;
 			case GameStates.PLAYER_ROLL:
 				foreach (Dice dice in playerDice) {
-					dice.gameObject.SetActive(true);
 					dice.RollDice();
 				}
 
