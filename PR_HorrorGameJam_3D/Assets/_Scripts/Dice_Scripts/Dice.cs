@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Dice : MonoBehaviour
 {
-    Rigidbody rb;
+    [SerializeField] Rigidbody rb;
 
     bool hasLanded;
     bool thrown;
@@ -20,7 +20,6 @@ public class Dice : MonoBehaviour
 
 	 void Start()
     {
-        rb = GetComponent<Rigidbody>();
         initPosition = transform.position;
         rb.useGravity = false;
         
