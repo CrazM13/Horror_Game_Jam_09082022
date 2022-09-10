@@ -56,13 +56,4 @@ public class Score_Tracker : MonoBehaviour
         return result;
     }
 
-	public int GetOracleWins()
-	{
-		return oracle;
-	}
-
-	public int GetPlayerWins()
-	{
-		return player;
-	}
 }
