@@ -12,13 +12,17 @@ public class VoodooDoll : MonoBehaviour {
 	private List<Vector3> offsets = new List<Vector3>();
 	private int needleIndex;
 
+	private bool IsEnabled { get; set; } = false;
+
 	// Start is called before the first frame update
 	void Start() {
-
+		ServiceLocator.GameManager.OnChangedState.AddListener(OnChangedState);
 	}
 
 	// Update is called once per frame
 	void Update() {
+		if (!IsEnabled) return;
+
 		if (Input.GetMouseButtonDown(0) && needleIndex < needles.Length) {
 			StabDoll();
 		}
@@ -35,6 +39,7 @@ public class VoodooDoll : MonoBehaviour {
 				offsets.Add(hitOffset);
 				MoveNeedle(hitOffset);
 				ServiceLocator.GameManager.CurrentState = GameStateManager.GameStates.VOODOO_PAIN;
+				IsEnabled = false;
 			}
 		}
 	}
@@ -54,5 +59,9 @@ public class VoodooDoll : MonoBehaviour {
 		});
 
 		needleIndex++;
+	}
+
+	private void OnChangedState(GameStateManager gameManager) {
+		IsEnabled = gameManager.CurrentState == GameStateManager.GameStates.VOODOO_SELECT;
 	}
 }
