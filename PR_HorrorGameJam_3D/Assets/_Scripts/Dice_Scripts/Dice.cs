@@ -21,7 +21,7 @@ public class Dice : MonoBehaviour
 	 void Start()
     {
         initPosition = transform.position;
-        rb.useGravity = false;
+        rb.useGravity = true;
         
     }
 
@@ -51,14 +51,11 @@ public class Dice : MonoBehaviour
     public void RollDice()
     {
 		ResetDice();
-		if (!thrown && !hasLanded)
-        {
-            thrown = true;
+        thrown = true;
 
-            rb.useGravity = true;
-			rb.isKinematic = false;
-            rb.AddTorque(Random.Range(0,500), Random.Range(0,500),Random.Range(0,500));
-        }
+        rb.useGravity = true;
+		rb.isKinematic = false;
+        rb.AddTorque(Random.Range(0,500), Random.Range(0,500),Random.Range(0,500));
        //else if (thrown && hasLanded)
        // {
        //     ResetDice();

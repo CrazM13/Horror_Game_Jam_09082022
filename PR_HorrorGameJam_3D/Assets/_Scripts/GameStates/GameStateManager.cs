@@ -52,10 +52,10 @@ public class GameStateManager : MonoBehaviour {
 		CurrentState = GameStates.INTRODUCTION;
 
 		foreach (Dice dice in playerDice) {
-			dice.transform.position = new Vector3(0, 100, 0);
+			dice.gameObject.SetActive(false);
 		}
 		foreach (Dice dice in oracleDice) {
-			dice.transform.position = new Vector3(0, 100, 0);
+			dice.gameObject.SetActive(false);
 		}
 
 	}
@@ -98,6 +98,7 @@ public class GameStateManager : MonoBehaviour {
 				}
 
 				foreach(Dice dice in oracleDice) {
+					dice.gameObject.SetActive(true);
 					dice.RollDice();
 				}
 				
@@ -117,6 +118,7 @@ public class GameStateManager : MonoBehaviour {
 				break;
 			case GameStates.PLAYER_ROLL:
 				foreach (Dice dice in playerDice) {
+					dice.gameObject.SetActive(true);
 					dice.RollDice();
 				}
 
