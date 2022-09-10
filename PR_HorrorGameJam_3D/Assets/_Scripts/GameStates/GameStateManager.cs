@@ -5,6 +5,13 @@ using UnityEngine.Events;
 
 public class GameStateManager : MonoBehaviour {
 
+	[SerializeField] private Score_Tracker score;
+	[SerializeField] private HighLowMenu highLowMenu;
+
+	public Score_Tracker Score => score;
+
+	private bool IsHigher;
+
 	public enum GameStates {
 		INTRODUCTION = 0,
 		ORACLE_ROLL = 1,
@@ -26,6 +33,7 @@ public class GameStateManager : MonoBehaviour {
 		set {
 			gameState = value;
 			OnChangedState.Invoke(this);
+			OnChangeState();
 		}
 	}
 
@@ -44,9 +52,18 @@ public class GameStateManager : MonoBehaviour {
 			}
 		}
 
-		switch(CurrentState) {
+		UpdateStates();
+	}
+
+	public void ScheduleStateChange(GameStates newState, float timeInSeconds) {
+		this.newGameState = newState;
+		this.timeUntilChangeState = timeInSeconds;
+	}
+
+	private void OnChangeState() {
+		switch (CurrentState) {
 			case GameStates.INTRODUCTION:
-				//ServiceLocator.AudioManager.PlayGlobal("Voice", "Introduction");
+				ServiceLocator.AudioManager.PlayRandomGlobal("Turn Start");
 				ScheduleStateChange(GameStates.ORACLE_ROLL, 5f);
 				break;
 			case GameStates.ORACLE_ROLL:
@@ -54,36 +71,47 @@ public class GameStateManager : MonoBehaviour {
 				ScheduleStateChange(GameStates.ORACLE_INSTRUCT, 10f);
 				break;
 			case GameStates.ORACLE_INSTRUCT:
-				//ServiceLocator.AudioManager.PlayRandomGlobal("Oracle HighLow Voice");
-				ScheduleStateChange(GameStates.ORACLE_INSTRUCT, 5f);
+				ServiceLocator.AudioManager.PlayRandomGlobal("High Low");
+				ScheduleStateChange(GameStates.PLAYER_HIGH_LOW, 5f);
 				break;
 			case GameStates.PLAYER_HIGH_LOW:
-				// TODO
+				highLowMenu.IsShowing = true;
 				break;
 			case GameStates.PLAYER_ROLL:
 				// TODO
 				ScheduleStateChange(GameStates.SCORE, 5f);
 				break;
 			case GameStates.SCORE:
-				// TODO
+
+				Score.setDice(Random.Range(1, 7), Random.Range(1, 7), IsHigher);
+
 				ScheduleStateChange(GameStates.VOODOO_SELECT, 5f);
 				break;
 			case GameStates.VOODOO_SELECT:
 				// TODO
 				break;
 			case GameStates.VOODOO_PAIN:
-				//if (SCORE is WIN) {
-				//	ServiceLocator.AudioManager.PlayRandomGlobal("Oracle Pain Voice");
-				//} else {
-				//	ServiceLocator.AudioManager.PlayRandomGlobal("Victim Pain Voice");
-				//}
+				if (Score.getResult() == "Player_Win") {
+					ServiceLocator.AudioManager.PlayRandomGlobal("Oracle Hurt");
+				} else if (Score.getResult() == "Player_Lose") {
+					ServiceLocator.AudioManager.PlayRandomGlobal("Player Lose");
+				} else {
+					CurrentState = GameStates.PLAYER_ROLL;
+				}
 				ScheduleStateChange(GameStates.ORACLE_ROLL, 5f);
 				break;
 		}
 	}
 
-	public void ScheduleStateChange(GameStates newState, float timeInSeconds) {
-		this.newGameState = newState;
-		this.timeUntilChangeState = timeInSeconds;
+	private void UpdateStates() {
+		switch (CurrentState) {
+			case GameStates.VOODOO_SELECT:
+				if (Input.anyKeyDown) CurrentState = GameStates.VOODOO_PAIN;
+				break;
+		}
+	}
+
+	public void SetHighLow(bool isHigher) {
+		this.IsHigher = isHigher;
 	}
 }

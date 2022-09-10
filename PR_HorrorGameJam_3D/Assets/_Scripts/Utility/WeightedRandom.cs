@@ -66,7 +66,7 @@ public static class WeightedRandom {
 
 	public class WeightedItem<T> {
 		[SerializeField] public T item;
-		[SerializeField, Min(1)] public int weight;
+		[SerializeField, Min(1)] public int weight = 1;
 	}
 
 }
