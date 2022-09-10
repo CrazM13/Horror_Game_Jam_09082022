@@ -39,7 +39,7 @@ public class GameStateManager : MonoBehaviour {
 
 	public UnityEvent<GameStateManager> OnChangedState { get; private set; } = new UnityEvent<GameStateManager>();
 
-	void Awake() {
+	void Start() {
 		CurrentState = GameStates.INTRODUCTION;
 	}
 
@@ -67,7 +67,14 @@ public class GameStateManager : MonoBehaviour {
 				ScheduleStateChange(GameStates.ORACLE_ROLL, 5f);
 				break;
 			case GameStates.ORACLE_ROLL:
+				if (Score.GetOracleWins() >= 3) {
+					ServiceLocator.SceneManager.LoadSceneByName("Lose Scene");
+				} else if (Score.GetPlayerWins() >= 3) {
+					ServiceLocator.SceneManager.LoadSceneByName("Win Scene");
+				}
+
 				// TODO
+
 				ScheduleStateChange(GameStates.ORACLE_INSTRUCT, 10f);
 				break;
 			case GameStates.ORACLE_INSTRUCT:
@@ -78,7 +85,9 @@ public class GameStateManager : MonoBehaviour {
 				highLowMenu.IsShowing = true;
 				break;
 			case GameStates.PLAYER_ROLL:
+
 				// TODO
+
 				ScheduleStateChange(GameStates.SCORE, 5f);
 				break;
 			case GameStates.SCORE:
@@ -98,17 +107,14 @@ public class GameStateManager : MonoBehaviour {
 				} else {
 					CurrentState = GameStates.PLAYER_ROLL;
 				}
+
 				ScheduleStateChange(GameStates.ORACLE_ROLL, 5f);
 				break;
 		}
 	}
 
 	private void UpdateStates() {
-		switch (CurrentState) {
-			case GameStates.VOODOO_SELECT:
-				if (Input.anyKeyDown) CurrentState = GameStates.VOODOO_PAIN;
-				break;
-		}
+
 	}
 
 	public void SetHighLow(bool isHigher) {
