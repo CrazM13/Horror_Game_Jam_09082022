@@ -110,6 +110,7 @@ public class GameStateManager : MonoBehaviour {
 				foreach (Dice dice in oracleDice) {
 					oracleScore += dice.diceValue;
 				}
+				highLowMenu.SetOracleRoll(oracleScore);
 
 				ScheduleStateChange(GameStates.PLAYER_HIGH_LOW, 5f);
 				break;
