@@ -18,7 +18,7 @@ public class Dice : MonoBehaviour
 	public bool IsDone => hasLanded;
 
 
-	 void Start()
+	 void Awake()
     {
         initPosition = transform.position;
         rb.useGravity = true;
