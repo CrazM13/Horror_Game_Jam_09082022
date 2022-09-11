@@ -16,7 +16,9 @@ public class VoodooDoll : MonoBehaviour {
 
 	// Start is called before the first frame update
 	void Start() {
-		ServiceLocator.GameManager.OnChangedState.AddListener(OnChangedState);
+		if (ServiceLocator.GameManager) {
+			ServiceLocator.GameManager.OnChangedState.AddListener(OnChangedState);
+		}
 	}
 
 	// Update is called once per frame
@@ -38,7 +40,10 @@ public class VoodooDoll : MonoBehaviour {
 				Vector3 hitOffset = hit.point - transform.position;
 				offsets.Add(hitOffset);
 				MoveNeedle(hitOffset);
-				ServiceLocator.GameManager.CurrentState = GameStateManager.GameStates.VOODOO_PAIN;
+
+				if (ServiceLocator.GameManager) {
+					ServiceLocator.GameManager.CurrentState = GameStateManager.GameStates.VOODOO_PAIN;
+				}
 				IsEnabled = false;
 			}
 		}
