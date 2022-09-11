@@ -149,4 +149,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 43e18001791fbd0429c48d9c5cfa52a6, type: 2}
   - {fileID: 11400000, guid: 9c58650ea61839048a066a3f6ea4269d, type: 2}
   - {fileID: 11400000, guid: 72ca947efb315974797041eb8fc839d8, type: 2}
+  - {fileID: 11400000, guid: a127def742f4f0a4d9c6ba2be88aa299, type: 2}
   maxFloatingAudioSources: 15
