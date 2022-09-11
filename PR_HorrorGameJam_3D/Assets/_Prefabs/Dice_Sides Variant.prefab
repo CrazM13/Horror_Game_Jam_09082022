@@ -96,7 +96,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sideValue: 1
-  checkSize: {x: 0.3, y: 0.3, z: 0.3}
+  checkSize: {x: 0.01, y: 0.01, z: 0.01}
 --- !u!65 &267529217
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -206,7 +206,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sideValue: 6
-  checkSize: {x: 0.3, y: 0.3, z: 0.3}
+  checkSize: {x: 0.01, y: 0.01, z: 0.01}
 --- !u!65 &285802768
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -316,7 +316,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sideValue: 3
-  checkSize: {x: 0.3, y: 0.3, z: 0.3}
+  checkSize: {x: 0.01, y: 0.01, z: 0.01}
 --- !u!65 &623335847
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -426,7 +426,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sideValue: 2
-  checkSize: {x: 0.3, y: 0.3, z: 0.3}
+  checkSize: {x: 0.01, y: 0.01, z: 0.01}
 --- !u!65 &1213542578
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -536,7 +536,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sideValue: 4
-  checkSize: {x: 0.3, y: 0.3, z: 0.3}
+  checkSize: {x: 0.01, y: 0.01, z: 0.01}
 --- !u!65 &1672456182
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -646,7 +646,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sideValue: 5
-  checkSize: {x: 0.3, y: 0.3, z: 0.3}
+  checkSize: {x: 0.01, y: 0.01, z: 0.01}
 --- !u!65 &2059652030
 BoxCollider:
   m_ObjectHideFlags: 0
