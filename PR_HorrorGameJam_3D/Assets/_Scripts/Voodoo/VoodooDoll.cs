@@ -18,6 +18,8 @@ public class VoodooDoll : MonoBehaviour {
 	void Start() {
 		if (ServiceLocator.GameManager) {
 			ServiceLocator.GameManager.OnChangedState.AddListener(OnChangedState);
+		} else {
+			IsEnabled = true;
 		}
 	}
 
@@ -43,8 +45,8 @@ public class VoodooDoll : MonoBehaviour {
 
 				if (ServiceLocator.GameManager) {
 					ServiceLocator.GameManager.CurrentState = GameStateManager.GameStates.VOODOO_PAIN;
+					IsEnabled = false;
 				}
-				IsEnabled = false;
 			}
 		}
 	}
